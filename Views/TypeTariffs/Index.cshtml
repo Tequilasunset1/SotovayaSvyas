@@ -1,0 +1,50 @@
+﻿@model SotovayaSvyas.ViewModels.TypeTariffsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    string nameFind = Model.NameFind;
+}
+
+<h1>Index</h1>
+
+<form method="get">
+    <label asp-for="NameFind"></label>
+    <input name="nameFind" value="@nameFind" />
+    <input type="hidden" name="sortOrder" value="@Model.SortOrder.CurrentState" />
+    <input type="submit" />
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.TariffNameSort"
+                   asp-route-nameFind="@nameFind">
+                    @Html.DisplayNameFor(model => model.TypeTariffs.Single().TariffName)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TypeTariffs) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TariffName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TypeTariffId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TypeTariffId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TypeTariffId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-nameFind="@nameFind"
+           page-url-sortOrder="@(Model.SortOrder.CurrentState)"></page-link>

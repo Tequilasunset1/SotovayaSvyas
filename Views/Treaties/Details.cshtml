@@ -1,0 +1,62 @@
+﻿@model SotovayaSvyas.Models.Treaty
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Treaty</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscriber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Subscriber.Surname @Model.Subscriber.Name @Model.Subscriber.Lastname
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateConclusion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateConclusion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TariffPlan.TariffName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TariffPlan.TariffName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lastname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lastname)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.TreatyId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

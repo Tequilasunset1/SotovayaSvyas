@@ -1,0 +1,42 @@
+﻿@model SotovayaSvyas.Models.ServicesProvided
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ServicesProvided</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuantitySms)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuantitySms)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataVolume)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataVolume)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscriber)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Subscriber.Surname @Model.Subscriber.Name @Model.Subscriber.Lastname
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ServicesProvidedId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

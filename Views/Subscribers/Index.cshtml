@@ -1,0 +1,122 @@
+﻿@model SotovayaSvyas.ViewModels.SubscribersViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    string? surnameFind = Model.Filter.SurnameFind;
+    string? nameFind = Model.Filter.NameFind;
+    string? lastnameFind = Model.Filter.LastnameFind;
+    string? addressFind = Model.Filter.AddressFind;
+    string? passportDetailsFind = Model.Filter.PassportDetailsFind;
+}
+
+<h1>Index</h1>
+
+<form method="get">
+    <label asp-for="@Model.Filter.SurnameFind"></label>
+    <input name="SurnameFind" value="@surnameFind" />
+    <label asp-for="@Model.Filter.NameFind"></label>
+    <input name="NameFind" value="@nameFind" />
+    <label asp-for="@Model.Filter.LastnameFind"></label>
+    <input name="LastnameFind" value="@lastnameFind" />
+    <label asp-for="@Model.Filter.AddressFind"></label>
+    <input name="AddressFind" value="@addressFind" />
+    <label asp-for="@Model.Filter.PassportDetailsFind"></label>
+    <input name="PassportDetailsFind" value="@passportDetailsFind" />
+    <input type="hidden" name="sortOrder" value="@Model.SortOrder.CurrentState" />
+    <input type="submit" />
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.SurnameSort"
+                   asp-route-FioFind="@surnameFind"
+                   asp-route-FioFind="@nameFind"
+                   asp-route-FioFind="@lastnameFind"
+                   asp-route-AddressFind="@addressFind"
+                   asp-route-PassportDetailsFind="@passportDetailsFind">
+                    @Html.DisplayNameFor(model => model.Subscribers.Single().Surname)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.NameSort"
+                   asp-route-FioFind="@surnameFind"
+                   asp-route-FioFind="@nameFind"
+                   asp-route-FioFind="@lastnameFind"
+                   asp-route-AddressFind="@addressFind"
+                   asp-route-PassportDetailsFind="@passportDetailsFind">
+                    @Html.DisplayNameFor(model => model.Subscribers.Single().Name)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.LastnameSort"
+                   asp-route-FioFind="@surnameFind"
+                   asp-route-FioFind="@nameFind"
+                   asp-route-FioFind="@lastnameFind"
+                   asp-route-AddressFind="@addressFind"
+                   asp-route-PassportDetailsFind="@passportDetailsFind">
+                    @Html.DisplayNameFor(model => model.Subscribers.Single().Lastname)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.AddressSort"
+                   asp-route-FioFind="@surnameFind"
+                   asp-route-FioFind="@nameFind"
+                   asp-route-FioFind="@lastnameFind"
+                   asp-route-AddressFind="@addressFind"
+                   asp-route-PassportDetailsFind="@passportDetailsFind">
+                    @Html.DisplayNameFor(model => model.Subscribers.Single().Address)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.PassportDetailsSort"
+                   asp-route-FioFind="@surnameFind"
+                   asp-route-FioFind="@nameFind"
+                   asp-route-FioFind="@lastnameFind"
+                   asp-route-AddressFind="@addressFind"
+                   asp-route-PassportDetailsFind="@passportDetailsFind">
+                    @Html.DisplayNameFor(model => model.Subscribers.Single().PassportDetails)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Subscribers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportDetails)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubscriberId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubscriberId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubscriberId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-FioFind="@surnameFind"
+           page-url-FioFind="@nameFind"
+           page-url-FioFind="@lastnameFind"
+           page-url-AddressFind="@addressFind"
+           page-url-PassportDetailsFind="@passportDetailsFind"
+           page-url-sortOrder="@(Model.SortOrder.CurrentState)"></page-link>

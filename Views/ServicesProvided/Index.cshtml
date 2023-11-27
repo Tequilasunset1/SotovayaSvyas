@@ -1,0 +1,101 @@
+﻿@model SotovayaSvyas.ViewModels.ServicesProvidedViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    TimeOnly? timeOnly = Model.Filter.TimeFind;
+    int? quantitySmsFind = Model.Filter.QuantitySmsFind;
+    int? dataVolumeFind = Model.Filter.DataVolumeFind;
+    string? subscriberFind = Model.Filter.SubscriberFind;
+}
+
+<h1>Index</h1>
+
+<form method="get">
+    <label asp-for="@Model.Filter.TimeFind"></label>
+    <input name="TimeFind" type="time" value="@timeOnly?.ToString("hh:mm")" />
+    <label asp-for="@Model.Filter.QuantitySmsFind"></label>
+    <input name="QuantitySmsFind" type="number" min="0" value="@quantitySmsFind" />
+    <label asp-for="@Model.Filter.DataVolumeFind"></label>
+    <input name="DataVolumeFind" type="number" min="0" value="@dataVolumeFind" />
+    <label asp-for="@Model.Filter.SubscriberFind"></label>
+    <input name="SubscriberFind" value="@subscriberFind" />
+    <input type="hidden" name="sortOrder" value="@Model.SortOrder.CurrentState" />
+    <input type="submit" />
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.TimeSort"
+                    asp-route-TimeFind="@timeOnly"
+                   asp-route-QuantitySmsFind="@quantitySmsFind"
+                   asp-route-DataVolumeFind="@dataVolumeFind"
+                    asp-route-SubscriberFind="@subscriberFind">
+                    @Html.DisplayNameFor(model => model.ServicesProvideds.Single().Time)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.QuantitySmsSort"
+                   asp-route-TimeFind="@timeOnly"
+                   asp-route-QuantitySmsFind="@quantitySmsFind"
+                   asp-route-DataVolumeFind="@dataVolumeFind"
+                   asp-route-SubscriberFind="@subscriberFind">
+                    @Html.DisplayNameFor(model => model.ServicesProvideds.Single().QuantitySms)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.DataVolumeSort"
+                   asp-route-TimeFind="@timeOnly"
+                   asp-route-QuantitySmsFind="@quantitySmsFind"
+                   asp-route-DataVolumeFind="@dataVolumeFind"
+                   asp-route-SubscriberFind="@subscriberFind">
+                    @Html.DisplayNameFor(model => model.ServicesProvideds.Single().DataVolume)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.SubscriberSort"
+                   asp-route-TimeFind="@timeOnly"
+                   asp-route-QuantitySmsFind="@quantitySmsFind"
+                   asp-route-DataVolumeFind="@dataVolumeFind"
+                   asp-route-SubscriberFind="@subscriberFind">
+                    @Html.DisplayNameFor(model => model.ServicesProvideds.Single().Subscriber)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.ServicesProvideds) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantitySms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataVolume)
+                </td>
+                <td>
+                    @item.Subscriber.Surname @item.Subscriber.Name @item.Subscriber.Lastname
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ServicesProvidedId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ServicesProvidedId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ServicesProvidedId">Delete</a>
+                </td>
+            </tr>
+    }
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-TimeFind="@(Model.Filter.TimeFind)"
+           page-url-QuantitySmsFind="@(Model.Filter.QuantitySmsFind)"
+           page-url-DataVolumeFind="@(Model.Filter.DataVolumeFind)"
+           page-url-SubscriberFind="@subscriberFind"
+           page-url-sortOrder="@(Model.SortOrder.CurrentState)"></page-link>

@@ -1,0 +1,161 @@
+﻿@model SotovayaSvyas.ViewModels.TreatiesViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    string? fioFind = Model.Filter.SubscriberFind;
+    DateOnly? dateConclusionFind = Model.Filter.DateConclusionFind;
+    string? tariffFind = Model.Filter.TariffFind;
+    string? phoneNumberFind = Model.Filter.PhoneNumberFind;
+    string? surnameFind = Model.Filter.SurnameFind;
+    string? nameFind = Model.Filter.NameFind;
+    string? lastnameFind = Model.Filter.LastnameFind;
+}
+
+<h1>Index</h1>
+
+<form method="get">
+    <label asp-for="@Model.Filter.SubscriberFind"></label>
+    <input name="FioFind" value="@fioFind" />
+    <label asp-for="@Model.Filter.DateConclusionFind"></label>
+    <input name="DateConclusionFind" type="Date" value="@dateConclusionFind?.ToString("yyyy-MM-dd")" />
+    <label asp-for="@Model.Filter.TariffFind"></label>
+    <input name="TariffFind" value="@tariffFind" />
+    <label asp-for="@Model.Filter.PhoneNumberFind"></label>
+    <input name="PhoneNumberFind" value="@phoneNumberFind" />
+    <label asp-for="@Model.Filter.SurnameFind"></label>
+    <input name="SurnameFind" value="@surnameFind" />
+    <label asp-for="@Model.Filter.NameFind"></label>
+    <input name="NameFind" value="@nameFind" />
+    <label asp-for="@Model.Filter.LastnameFind"></label>
+    <input name="LastnameFind" value="@lastnameFind" />
+    <input type="hidden" name="sortOrder" value="@Model.Sort.CurrentState" />
+    <input type="submit" />
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.Sort.SubscriberSort"
+                   asp-route-FioFind="@fioFind"
+                   asp-route-DateConclusionFind="@dateConclusionFind"
+                   asp-route-TariffFind="@tariffFind"
+                   asp-route-PhoneNumberFind="@phoneNumberFind"
+                   asp-route-SurnameFind="@surnameFind"
+                   asp-route-NameFind="@nameFind"
+                   asp-route-LastnameFind="@lastnameFind">
+                    @Html.DisplayNameFor(model => model.Treaties.Single().Subscriber)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.Sort.DateConclusionSort"
+                   asp-route-FioFind="@fioFind"
+                   asp-route-DateConclusionFind="@dateConclusionFind"
+                   asp-route-TariffFind="@tariffFind"
+                   asp-route-PhoneNumberFind="@phoneNumberFind"
+                   asp-route-SurnameFind="@surnameFind"
+                   asp-route-NameFind="@nameFind"
+                   asp-route-LastnameFind="@lastnameFind">
+                    @Html.DisplayNameFor(model => model.Treaties.Single().DateConclusion)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.Sort.TariffSort"
+                   asp-route-FioFind="@fioFind"
+                   asp-route-DateConclusionFind="@dateConclusionFind"
+                   asp-route-TariffFind="@tariffFind"
+                   asp-route-PhoneNumberFind="@phoneNumberFind"
+                   asp-route-SurnameFind="@surnameFind"
+                   asp-route-NameFind="@nameFind"
+                   asp-route-LastnameFind="@lastnameFind">
+                    @Html.DisplayNameFor(model => model.Treaties.Single().TariffPlan.TariffName)
+                </a>
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Treaties.Single().PhoneNumber)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.Sort.SurnameSort"
+                   asp-route-FioFind="@fioFind"
+                   asp-route-DateConclusionFind="@dateConclusionFind"
+                   asp-route-TariffFind="@tariffFind"
+                   asp-route-PhoneNumberFind="@phoneNumberFind"
+                   asp-route-SurnameFind="@surnameFind"
+                   asp-route-NameFind="@nameFind"
+                   asp-route-LastnameFind="@lastnameFind">
+                    @Html.DisplayNameFor(model => model.Treaties.Single().Surname)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.Sort.NameSort"
+                   asp-route-FioFind="@fioFind"
+                   asp-route-DateConclusionFind="@dateConclusionFind"
+                   asp-route-TariffFind="@tariffFind"
+                   asp-route-PhoneNumberFind="@phoneNumberFind"
+                   asp-route-SurnameFind="@surnameFind"
+                   asp-route-NameFind="@nameFind"
+                   asp-route-LastnameFind="@lastnameFind">
+                    @Html.DisplayNameFor(model => model.Treaties.Single().Name)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.Sort.LastnameSort"
+                   asp-route-FioFind="@fioFind"
+                   asp-route-DateConclusionFind="@dateConclusionFind"
+                   asp-route-TariffFind="@tariffFind"
+                   asp-route-PhoneNumberFind="@phoneNumberFind"
+                   asp-route-SurnameFind="@surnameFind"
+                   asp-route-NameFind="@nameFind"
+                   asp-route-LastnameFind="@lastnameFind">
+                    @Html.DisplayNameFor(model => model.Treaties.Single().Lastname)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Treaties) {
+        <tr>
+            <td>
+                @item.Subscriber.Surname @item.Subscriber.Name @item.Subscriber.Lastname
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateConclusion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TariffPlan.TariffName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TreatyId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TreatyId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TreatyId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-FioFind="@fioFind"
+           page-url-DateConclusionFind="@dateConclusionFind"
+           page-url-TariffFind="@tariffFind"
+           page-url-PhoneNumberFind="@phoneNumberFind"
+           page-url-SurnameFind="@surnameFind"
+           page-url-NameFind="@nameFind"
+           page-url-LastnameFind="@lastnameFind"
+           page-url-sortOrder="@(Model.Sort.CurrentState)"></page-link>

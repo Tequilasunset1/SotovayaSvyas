@@ -1,0 +1,137 @@
+﻿@model SotovayaSvyas.ViewModels.TariffPlansViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    string? typeNameFind = Model.Filter.TypeNameFind;
+    decimal? subscriptionLocalFind = Model.Filter.SubscriptionLocalFind;
+    decimal? subscriptionIntercityFind = Model.Filter.SubscriptionIntercityFind;
+    decimal? subscriptionInternationalFind = Model.Filter.SubscriptionInternationalFind;
+    string? typeTariffFind = Model.Filter.TypeTariffFind;
+    int? priceSmsFind = Model.Filter.PriceSmsFind;
+}
+
+<h1>Index</h1>
+
+<form method="get">
+    <label asp-for="@Model.Filter.TypeNameFind"></label>
+    <input name="TypeNameFind" value="@typeNameFind" />
+    <label asp-for="@Model.Filter.SubscriptionLocalFind"></label>
+    <input name="SubscriptionLocalFind" type="number" step="any" min="0" value="@subscriptionLocalFind.ToString()?.Replace(",", ".")" />
+    <label asp-for="@Model.Filter.SubscriptionIntercityFind"></label>
+    <input name="SubscriptionIntercityFind" type="number" step="any" min="0"  value="@subscriptionIntercityFind.ToString()?.Replace(",", ".")" />
+    <label asp-for="@Model.Filter.SubscriptionInternationalFind"></label>
+    <input name="SubscriptionInternationalFind" type="number" step="any" min="0"  value="@subscriptionInternationalFind.ToString()?.Replace(",", ".")" />
+    <label asp-for="@Model.Filter.TypeTariffFind"></label>
+    <input name="TypeTariffFind" value="@typeTariffFind" />
+    <label asp-for="@Model.Filter.PriceSmsFind"></label>
+    <input name="PriceSmsFind" type="number" min="0" value="@priceSmsFind" />
+    <input type="hidden" name="sortOrder" value="@Model.SortOrder.CurrentState" />
+    <input type="submit" />
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.NameSort"
+                   asp-route-TypeNameFind="@typeNameFind"
+                   asp-route-SubscriptionLocalFind="@subscriptionLocalFind"
+                   asp-route-SubscriptionIntercityFind="@subscriptionIntercityFind"
+                   asp-route-SubscriptionInternationalFind="@subscriptionInternationalFind"
+                   asp-route-TypeTariffFind="@typeTariffFind"
+                   asp-route-PriceSmsFind="@priceSmsFind">
+                    @Html.DisplayNameFor(model => model.TariffPlans.Single().TariffName)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.SubscriptionLocalSort"
+                   asp-route-TypeNameFind="@typeNameFind"
+                   asp-route-SubscriptionLocalFind="@subscriptionLocalFind"
+                   asp-route-SubscriptionIntercityFind="@subscriptionIntercityFind"
+                   asp-route-SubscriptionInternationalFind="@subscriptionInternationalFind"
+                   asp-route-TypeTariffFind="@typeTariffFind"
+                   asp-route-PriceSmsFind="@priceSmsFind">
+                    @Html.DisplayNameFor(model => model.TariffPlans.Single().SubscriptionLocal)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.SubscriptionIntercitySort"
+                   asp-route-TypeNameFind="@typeNameFind"
+                   asp-route-SubscriptionLocalFind="@subscriptionLocalFind"
+                   asp-route-SubscriptionIntercityFind="@subscriptionIntercityFind"
+                   asp-route-SubscriptionInternationalFind="@subscriptionInternationalFind"
+                   asp-route-TypeTariffFind="@typeTariffFind"
+                   asp-route-PriceSmsFind="@priceSmsFind">
+                    @Html.DisplayNameFor(model => model.TariffPlans.Single().SubscriptionIntercity)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.SubscriptionInternationalSort"
+                   asp-route-TypeNameFind="@typeNameFind"
+                   asp-route-SubscriptionLocalFind="@subscriptionLocalFind"
+                   asp-route-SubscriptionIntercityFind="@subscriptionIntercityFind"
+                   asp-route-SubscriptionInternationalFind="@subscriptionInternationalFind"
+                   asp-route-TypeTariffFind="@typeTariffFind"
+                   asp-route-PriceSmsFind="@priceSmsFind">
+                    @Html.DisplayNameFor(model => model.TariffPlans.Single().SubscriptionInternational)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortOrder.PriceSmsSort"
+                   asp-route-TypeNameFind="@typeNameFind"
+                   asp-route-SubscriptionLocalFind="@subscriptionLocalFind"
+                   asp-route-SubscriptionIntercityFind="@subscriptionIntercityFind"
+                   asp-route-SubscriptionInternationalFind="@subscriptionInternationalFind"
+                   asp-route-TypeTariffFind="@typeTariffFind"
+                   asp-route-PriceSmsFind="@priceSmsFind">
+                    @Html.DisplayNameFor(model => model.TariffPlans.Single().PriceSms)
+                </a>
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.TariffPlans.Single().TypeTariff)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TariffPlans) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.TariffName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionLocal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionIntercity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionInternational)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceSms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeTariff.TariffName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TariffPlanId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TariffPlanId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TariffPlanId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-TypeNameFind="@typeNameFind"
+           page-url-SubscriptionLocalFind="@subscriptionLocalFind"
+           page-url-SubscriptionIntercityFind="@subscriptionIntercityFind"
+           page-url-SubscriptionInternationalFind="@subscriptionInternationalFind"
+           page-url-TypeTariffFind="@typeTariffFind"
+           page-url-PriceSmsFind="@priceSmsFind"
+           page-url-sortOrder="@(Model.SortOrder.CurrentState)"></page-link>
